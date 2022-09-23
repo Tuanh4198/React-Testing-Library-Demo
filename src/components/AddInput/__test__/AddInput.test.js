@@ -4,17 +4,25 @@ import AddInput from "../AddInput"
 const mockedSetTodo = jest.fn();
 
 describe("AddInput", () => {
+	describe("test case of input", () => {
+		// cacs case có thể xảy ra với input
+	})
+
+	describe("test case of button", () => {
+		// cacs case có thể xảy ra với button
+	})
+
     it('should render input element', () => {
-        render(
+        const { getByPlaceholderText } = render(
             <AddInput 
-                todos={[]}
+                todos={['1', '2']}
                 setTodos={mockedSetTodo}
             />
         );
-        const inputElement = screen.getByPlaceholderText(/Add a new task here.../i);
+        const inputElement = getByPlaceholderText(/Add a new task here.../i);
         expect(inputElement).toBeInTheDocument();
     });
-    
+
     it('should be able to type into input', () => {
         render(
             <AddInput 
