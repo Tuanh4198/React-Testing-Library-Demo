@@ -1,8 +1,8 @@
 import axios from "axios"
 
-export const callApi = () => {
+export const callApi = async () => {
 	try {
-		const res = axios.get("https://randomuser.me/api/?results=5");
+		const res = await axios.get("https://randomuser.me/api/?results=5");
 
 		return res.results
 	} catch (err) {

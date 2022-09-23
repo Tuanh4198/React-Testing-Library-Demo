@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./FollowersList.css"
-import axios from "axios"
 import { Link } from 'react-router-dom';
+import { callApi } from './api'
 
 export default function FollowersList() {
 
@@ -10,14 +10,14 @@ export default function FollowersList() {
     useEffect(() => {
 
         const fetchFollowers = async () => {
-            const { data } = await axios.get("https://randomuser.me/api/?results=5")
-            setFollowers(data.results)
+            const results = await callApi();
+            setFollowers(results)
         }
 
         fetchFollowers()
     }, []);
 
-
+		if(followers.length <= 0) return <div data-testid="loading">Loading...</div>
 
     return (
         <div className="followerslist-container">
