@@ -15,5 +15,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Set version
+      id: set_timestamp
+      run: echo "::set-output name=timestamp::$(date +%s)"
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag react-app:$(date +%s)
+      run: docker build . --file Dockerfile --tag react-app:${{ steps.set_timestamp.outputs.timestamp }}
+
+    - name: Log in to Docker hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -P ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker image to Docker hub
+      run: docker push react-app:${{ steps.set_timestamp.outputs.timestamp }}
